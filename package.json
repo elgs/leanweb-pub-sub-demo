@@ -1,0 +1,17 @@
+{
+  "name": "leanweb-pub-sub-demo",
+  "version": "1.0.0",
+  "description": "Demonstrates how Leanweb helps web components to talk to each other.",
+  "keywords": [
+    "leanweb"
+  ],
+  "author": "Qian Chen",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "babel-loader": "^8.1.0"
+  }
+}
