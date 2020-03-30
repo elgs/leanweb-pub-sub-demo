@@ -11,9 +11,10 @@ customElements.define(component.id,
     sub() {
       this.listener = LWElement.eventBus.addEventListener('time', event => {
         this.time = event.data;
-        this.subscribed = true;
         this.update();
       });
+      this.subscribed = true;
+      this.update();
     }
 
     unsub() {
