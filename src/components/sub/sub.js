@@ -1,15 +1,15 @@
 import LWElement from './../../lib/lw-element.js';
-import interpolation from './ast.js';
+import ast from './ast.js';
 
-const component = { id: 'demo-sub', interpolation };
-customElements.define(component.id,
+
+customElements.define('demo-sub',
   class extends LWElement {  // LWElement extends HTMLElement
     constructor() {
-      super(component);
+      super(ast);
     }
 
     sub() {
-      this.listener = LWElement.eventBus.addEventListener('time', event => {
+      this.listener = leanweb.eventBus.addEventListener('time', event => {
         this.time = event.data;
         this.update();
       });
@@ -18,7 +18,7 @@ customElements.define(component.id,
     }
 
     unsub() {
-      LWElement.eventBus.removeEventListener(this.listener);
+      leanweb.eventBus.removeEventListener(this.listener);
       this.subscribed = false;
       this.update();
     }

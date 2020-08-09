@@ -87,7 +87,7 @@ const nodeHandlers = {
    'MemberExpression': (node, context) => {
       const object = evalNode(node.object, context);
       const member = node.computed ? object[evalNode(node.property, context)] : object[node.property.name];
-      if (node.object.type === 'RegExpLiteral' && typeof member === 'function') {
+      if (typeof member === 'function') {
          return member.bind(object);
       }
       return member;
@@ -98,7 +98,7 @@ const nodeHandlers = {
          return void 0;
       }
       const member = node.computed ? (object[evalNode(node.property, context)]) : (object[node.property.name]);
-      if (node.object.type === 'RegExpLiteral' && typeof member === 'function') {
+      if (typeof member === 'function') {
          return member.bind(object);
       }
       return member;
@@ -131,21 +131,26 @@ const nodeHandlers = {
    'CallExpression': (node, context) => callFunction(node, context),
    'OptionalCallExpression': (node, context) => callFunction(node, context),
    'NewExpression': (node, context) => callFunction(node, context),
+
+   'Directive': (node, context) => evalNode(node.value, context),
+   'DirectiveLiteral': (node, context) => node.value,
 };
 
 const evalNode = (node, context) => nodeHandlers[node.type](node, context);
 
-export const evaluate = (ast, context = {}, loc = {}) => {
+const evaluate = (ast, context = {}, loc = {}) => {
    try {
       return ast.map(astNode => evalNode(astNode, context));
    } catch (e) {
-      throw { error: e.message, location: loc };
+      throw { error: e.message, location: loc, ast, context };
    }
 };
 
-  // module.exports = { evaluate };
-  // const parser = require('@babel/parser');
-  // const ast = parser.parse("/\\d+/.test(1);123").program.body;
-  // console.log(ast);
-  // const result = evaluate(JSON.parse(JSON.stringify(ast)), { a: {} });
-  // console.log(result);
+export { evaluate };
+
+//   module.exports = { evaluate };
+// const parser = require('@babel/parser');
+// const ast = parser.parse("name?.toUpperCase()").program.body;
+// console.log(ast);
+// const result = evaluate(JSON.parse(JSON.stringify(ast)), { name: 'hello' });
+// console.log(result);
