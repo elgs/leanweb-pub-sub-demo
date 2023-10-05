@@ -1,16 +1,12 @@
-.sub {
+.pub {
   width: 300px;
-  height:100px;
+  height: 100px;
   border: 1px solid gray;
   margin: auto;
   display: grid;
-  margin-top: 10px;
-  
-  span {
-    margin: auto;
-  }
+  margin-top: 20px;
 
-  .buttons {
+  & span {
     margin: auto;
   }
 }
